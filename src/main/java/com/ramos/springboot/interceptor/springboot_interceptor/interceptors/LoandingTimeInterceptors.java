@@ -1,5 +1,7 @@
 package com.ramos.springboot.interceptor.springboot_interceptor.interceptors;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,6 +37,17 @@ public class LoandingTimeInterceptors implements HandlerInterceptor{
         //Aplicando un hilo para dormir maximo 500 milisegundos el proceso
         Thread.sleep(delay);
 
+        //Se personaliza la respuesta en caso de que se devuleva un false en el return
+        /*Map<String, String> json = new HashMap<>();
+        json.put("error", "No tienes acceso a la pagina");
+        
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(json);
+        response.setContentType("application/json");
+        response.setStatus(401);
+        response.getWriter().write(jsonString);
+
+        return false;*/
         return true;
     }
     

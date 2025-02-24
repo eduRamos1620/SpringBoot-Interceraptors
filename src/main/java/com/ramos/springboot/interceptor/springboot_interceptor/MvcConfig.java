@@ -13,10 +13,17 @@ public class MvcConfig implements WebMvcConfigurer{
     @Autowired
     @Qualifier("timeInterceptors")
     private HandlerInterceptor timeInterceptor;
-    
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(timeInterceptor);
+        //EL interceptor se aplica a todas las rutas
+        //registry.addInterceptor(timeInterceptor);
+        
+        //Seleccionando rutas donde se applicra el Interceptor
+        registry.addInterceptor(timeInterceptor).addPathPatterns("/app/bar", "/app/baz");
+
+        //Exluyendo rutas donde no queremos que se aplique el Interceptor
+        //registry.addInterceptor(timeInterceptor).excludePathPatterns("/app/foo", "/app/bar");
     }
     
 }
